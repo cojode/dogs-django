@@ -31,10 +31,12 @@ COPY --from=builder /app /app
 
 WORKDIR /app
 COPY . .
+
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1
 
 RUN useradd -m appuser && chown -R appuser /app
 USER appuser
 
-CMD ["sh", "-c", "python dogs/manage.py migrate && python dogs/manage.py runserver 0.0.0.0:8000"]
+WORKDIR /app/dogs
+CMD ["sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]

@@ -23,6 +23,16 @@ services:
     read_only: true
     tmpfs:
       - /tmp
+  test:
+    build: .
+    networks:
+      - backend
+    command: >
+      sh -c "python manage.py test --no-input"
+    volumes:
+      - .:/app
+    environment:
+      TESTING: "true"
 
 volumes:
   postgres_data:
