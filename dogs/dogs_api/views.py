@@ -12,7 +12,9 @@ from .serializers import (
 
 
 class DogViewSet(viewsets.ModelViewSet):
-    """Dog model viewset, featuring two extended overriden actions.
+    """Dog model viewset, featuring two extended overriden actions."""
+    
+    """
     # * GET [list] /api/dogs/
     # ? also includes information about average age of a dog with the same breed.
     #
@@ -51,7 +53,9 @@ class DogViewSet(viewsets.ModelViewSet):
 
 
 class BreedViewSet(viewsets.ModelViewSet):
-    """Breed model viewset, featuring one extended overriden action.
+    """Breed model viewset, featuring one extended overriden action."""
+    
+    """
     # * GET [list] /api/breeds/
     # ? also includes information about average age of a dog with the same breed.
     #
