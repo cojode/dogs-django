@@ -12,6 +12,19 @@ from .serializers import (
 
 
 class DogViewSet(viewsets.ModelViewSet):
+    """Dog model viewset, featuring two extended overriden actions.
+    # * GET [list] /api/dogs/
+    # ? also includes information about average age of a dog with the same breed.
+    #
+    # * POST /api/dogs/
+    #
+    # * GET /api/dogs/<id>
+    # ? also includes dog count with the same breed (breed_count).
+    #
+    # * PUT /api/dogs/<id>
+    #
+    # * DELETE /api/dogs/<id>
+    """
     queryset = Dog.objects.all()
     serializer_class = DogSerializer
 
@@ -38,15 +51,29 @@ class DogViewSet(viewsets.ModelViewSet):
 
 
 class BreedViewSet(viewsets.ModelViewSet):
+    """Breed model viewset, featuring one extended overriden action.
+    # * GET [list] /api/breeds/
+    # ? also includes information about average age of a dog with the same breed.
+    #
+    # * POST /api/breeds/
+    #
+    # * GET /api/breeds/<id>
+    #
+    # * PUT /api/breeds/<id>
+    #
+    # * DELETE /api/breeds/<id>
+    """
     queryset = Breed.objects.all()
     serializer_class = BreedSerializer
 
     def get_queryset(self):
-        if self.action == "list":
-            return Breed.objects.annotate(dog_count=Count("dogs"))
+        match self.action:
+            case "list":
+                return Breed.objects.annotate(dog_count=Count("dogs"))
         return super().get_queryset()
 
     def get_serializer_class(self):
-        if self.action == "list":
-            return BreedListSerializer
-        return super().get_serializer_class()
+        serializer_options = {"list": BreedListSerializer}
+        return serializer_options.get(
+            self.action, super().get_serializer_class()
+        )

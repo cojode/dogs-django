@@ -3,6 +3,7 @@ from django.db import models
 
 
 class Breed(models.Model):
+    """Breed model featuring breeds traits of a dogs."""
     class RatingField(models.IntegerField):
         """Integer in [1;5] range"""
 
@@ -38,7 +39,7 @@ class Breed(models.Model):
 
 
 class Dog(models.Model):
-    """Dog model linked to a breed."""
+    """Dog model representing dog and its breed."""
 
     name = models.CharField(max_length=100)
     age = models.IntegerField()

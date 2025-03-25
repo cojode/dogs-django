@@ -7,6 +7,7 @@ from .models import Breed, Dog
 
 class DogAPITests(APITestCase):
     def setUp(self):
+        """Setup with test data."""
         self.breed1 = Breed.objects.create(
             name="Labrador",
             size="Large",
