@@ -93,7 +93,3 @@ docker compose up test --build
 └── README.md
 └── requirements.txt
 ```
-├── pyproject.toml
-├── README.md
-└── requirements.txt
-```
